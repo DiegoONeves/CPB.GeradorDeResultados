@@ -1,0 +1,188 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <style>
+        body {
+            margin: 0px 0px 0px 0px;
+            font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }  
+        .logo {
+            text-align: right; 
+            position:relative;
+            right:0px;
+        }
+        .conteudo {  
+            position: relative;
+            margin:-50px 30px 0px 30px;
+        } 
+        .rodape {
+            background-image:url("Imagens/fundo.png"); 
+            width:100%; 
+            position:fixed;
+            bottom:0px;
+            left:0px;
+            height:328px;
+            background-repeat: no-repeat;
+            background-position:right;
+            z-index:-1;
+        }
+        table {
+            font-size: 30px;
+            text-align: center;
+            z-index: -1;
+        }
+
+        .top {
+            position: relative;
+            overflow: hidden; 
+            z-index:1;
+            position:static;
+        }
+
+            .top:before {
+                content: "";
+                position: absolute;
+                width: 2900px;
+                height: 328px;
+                background: url("Imagens/fundo.png") no-repeat;
+                transform: rotate(180deg);
+                left: -2108px;
+                top: 0px;
+            }
+
+        .tabela th {
+            border: 2px solid black;
+            background-color: #F6E13B;
+        }
+        .tabela td {
+            font-size: 25px;
+        }
+
+        .tabela {
+            width: 100%;
+            text-align:center;
+            margin-top:-20px;
+        }
+
+        p {
+            font-size: 35px; 
+            font-weight: bold; 
+            text-transform:uppercase;
+        }
+
+    </style>
+</head>
+<body>
+    <div style="position:relative;">
+        <!--Topo-->
+        <div class="top"> 
+            <div class="logo">
+                <img src="Imagens/logo_cpb.png" />
+            </div>
+        </div>
+
+        <!--Conteudo-->
+        <div class="conteudo">
+            <p>100m rasos Masculino</p>
+            <table class="tabela" >
+                <tr>
+                    <th width="5%">Col</th>
+                    <th width="5%">Num</th>
+                    <th width="5%">Raia</th>
+                    <th width="20%">Nome</th>
+                    <th width="20%">Equipe</th>
+                    <th width="10%">Res</th>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>120</td>
+                    <td>3</td>
+                    <td>Atleta 1</td>
+                    <td>Equipe 1</td>
+                    <td>10.10</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>121</td>
+                    <td>2</td>
+                    <td>Atleta 2</td>
+                    <td>Equipe 2</td>
+                    <td>10.15</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>122</td>
+                    <td>4</td>
+                    <td>Atleta 3</td>
+                    <td>Equipe 3</td>
+                    <td>10.30</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>123</td>
+                    <td>7</td>
+                    <td>Atleta 4</td>
+                    <td>Equipe 4</td>
+                    <td>10.40</td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>124</td>
+                    <td>5</td>
+                    <td>Atleta 5</td>
+                    <td>Equipe 5</td>
+                    <td>10.45</td>
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td>125</td>
+                    <td>6</td>
+                    <td>Atleta 6</td>
+                    <td>Equipe 6</td>
+                    <td>10.50</td>
+                </tr>
+                <tr>
+                    <td>7</td>
+                    <td>125</td>
+                    <td>6</td>
+                    <td>Atleta 6</td>
+                    <td>Equipe 6</td>
+                    <td>10.50</td>
+                </tr>
+                <tr>
+                    <td>8</td>
+                    <td>125</td>
+                    <td>6</td>
+                    <td>Atleta 6</td>
+                    <td>Equipe 6</td>
+                    <td>10.50</td>
+                </tr>
+                <tr>
+                    <td>9</td>
+                    <td>125</td>
+                    <td>6</td>
+                    <td>Atleta 6</td>
+                    <td>Equipe 6</td>
+                    <td>10.50</td>
+                </tr>
+                <tr>
+                    <td>10</td>
+                    <td>125</td>
+                    <td>6</td>
+                    <td>Atleta 6</td>
+                    <td>Equipe 6</td>
+                    <td>10.50</td>
+                </tr>
+            </table>
+        </div>
+
+        <!--Rodape-->
+        <div class="rodape">
+            <img src="Imagens/logo_loterias.png" style="margin-top:120px;margin-left:50px"  />
+            <img src="Imagens/logo_braskem.png" style="margin-left:30px;margin-bottom:30px"  />
+        </div>
+    </div>
+</body>
+</html>

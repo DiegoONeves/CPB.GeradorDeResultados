@@ -55,5 +55,12 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Pagina\Imagens\fundo.png" />
+    <Content Include="Pagina\Imagens\logo_braskem.png" />
+    <Content Include="Pagina\Imagens\logo_cpb.png" />
+    <Content Include="Pagina\Imagens\logo_loterias.png" />
+    <Content Include="Pagina\index.html" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
