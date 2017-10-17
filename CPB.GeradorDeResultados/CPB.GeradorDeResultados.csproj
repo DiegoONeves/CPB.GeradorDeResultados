@@ -61,6 +61,7 @@
     <Content Include="Pagina\Imagens\logo_cpb.png" />
     <Content Include="Pagina\Imagens\logo_loterias.png" />
     <Content Include="Pagina\index.html" />
+    <Content Include="Pagina\styles.css" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

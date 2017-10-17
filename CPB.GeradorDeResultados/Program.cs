@@ -9,20 +9,13 @@ using System.Threading.Tasks;
 namespace CPB.GeradorDeResultados
 {
     class Program
-    {   
+    {
         static void Main(string[] args)
         {
             Console.WriteLine($"Iniciando servidor - {DateTime.Now.ToLocalTime()}");
 
-            try
-            {
-                GeradorResultadoService geradorResultado = new GeradorResultadoService();
-                geradorResultado.Iniciar();
-            }
-            catch (Exception ex)
-            {
-                //gravar log
-            }
+            GeradorResultadoService geradorResultado = new GeradorResultadoService();
+            geradorResultado.Iniciar();
 
             Console.ReadLine();
         }

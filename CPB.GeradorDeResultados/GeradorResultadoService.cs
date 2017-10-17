@@ -40,8 +40,8 @@ namespace CPB.GeradorDeResultados
 
             _timerPrincipal = new System.Timers.Timer();
             _timerPrincipal.Enabled = true;
-            _timerPrincipal.Interval = 100;
-            _timerPrincipal.Elapsed += new ElapsedEventHandler(timerEver_Tick);
+            _timerPrincipal.Interval = 300;
+            _timerPrincipal.Elapsed += new ElapsedEventHandler(timerPrincipal_Tick);
 
             _timerResultados = new System.Timers.Timer();
             _timerResultados.Interval = 1000;
@@ -59,16 +59,23 @@ namespace CPB.GeradorDeResultados
 
         }
 
-        private void timerEver_Tick(object sender, EventArgs e)
+        private void timerPrincipal_Tick(object sender, EventArgs e)
         {
-            string[] files = Directory.GetFiles(_pasta);
-            if (files.Length > 0)
+            try
             {
-                _timerPrincipal.Stop();
-                Processar(files[0]);
+                string[] files = Directory.GetFiles(_pasta);
+                if (files.Length > 0)
+                {
+                    _timerPrincipal.Stop();
+                    Processar(files[0]);
+                }
+            }
+            catch { }
+            finally
+            {
+                _timerPrincipal.Start();
             }
 
-            _timerPrincipal.Start();
         }
 
         public void Iniciar()
@@ -133,7 +140,7 @@ namespace CPB.GeradorDeResultados
         private void CriarPaginaStandBy()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("<html>");
+            sb.Append("<!DOCTYPE html><html><meta charset=\"utf-8\" />");
             sb.Append("<head>");
             sb.Append("</head>");
             sb.Append("<body style=\"background: black;\">");
@@ -145,14 +152,34 @@ namespace CPB.GeradorDeResultados
 
         private void AtualizarPaginaDeResultados()
         {
-            var resultados = GerarResultado();
+            var resultado = GerarResultado();
 
             StringBuilder sb = new StringBuilder();
-            sb.Append("<html>");
+            sb.Append("<!DOCTYPE html><html><meta charset=\"utf-8\" />");
             sb.Append("<head>");
+            sb.Append("<link rel=\"stylesheet\" type=\"text/css\" href=\"styles.css\">");
             sb.Append("</head>");
-            sb.Append($"<body style=\"\">");
-
+            sb.Append($"<body>");
+            sb.Append($@"<div style=""position:relative;"">
+          <div class=""top""><div class=""logo""><img src=""Imagens/logo_cpb.png"" /></div>
+        </div><div class=""conteudo""><p style=""margin-bottom:80px"">{resultado.Prova.NomeDaProva}</p>
+            <table class=""tabela"" >
+                <tr>
+                    <th width=""5%"">Col</th>
+                    <th width=""5%"">Num</th>
+                    <th width=""5%"">Raia</th>
+                    <th width=""20%"">Nome</th>
+                    <th width=""20%"">Equipe</th>
+                    <th width=""10%"">Res</th>
+                </tr>");
+            foreach (var item in resultado.Participantes)
+            {
+                sb.Append("<tr>");
+                sb.Append($"<td>{item.Colocacao}</td><td>{item.Identificacao}</td><td>{item.Raia}</td><td>{item.Nome}</td><td>{item.Clube}</td><td>{item.Tempo}</td>");
+                sb.Append("</tr>");
+            }
+            sb.Append(@"</table></div><div class=""rodape""><img src=""Imagens/logo_loterias.png"" style=""margin-top:120px;margin-left:50px"" />
+                        <img src=""Imagens/logo_braskem.png"" style=""margin-left:30px;margin-bottom:30px"" /></div></div>");
             sb.Append("</body>");
             sb.Append("</html>");
 
