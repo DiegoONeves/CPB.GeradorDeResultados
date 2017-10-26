@@ -1,6 +1,6 @@
 body {
     margin: 0px 0px 0px 0px;
-    font-family: 'Gill Sans', 'Gill Sans MT', 'Calibri', 'Trebuchet MS', sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .logo {
@@ -27,7 +27,7 @@ body {
 }
 
 table {
-    font-size: 30px;
+    font-size: 50px;
     text-align: center;
     z-index: -1;
 }
@@ -39,24 +39,25 @@ table {
     position: static;
 }
 
-.top:before {
-    content: "";
-    position: absolute;
-    width: 2900px;
-    height: 328px;
-    background: url('Imagens/fundo.png') no-repeat;
-    transform: rotate(180deg);
-    left: -2108px;
-    top: 0px;
-}
+    .top:before {
+        content: "";
+        position: absolute;
+        width: 2900px;
+        height: 328px;
+        background: url('Imagens/fundo.png') no-repeat;
+        transform: rotate(180deg);
+        left: -2108px;
+        top: 0px;
+    }
 
 .tabela th {
     border: 2px solid black;
     background-color: #F6E13B;
+    font-size: 40px;
 }
 
 .tabela td {
-    font-size: 25px;
+    font-size: 40px;
 }
 
 .tabela {
@@ -66,7 +67,7 @@ table {
 }
 
 p {
-    font-size: 35px;
+    font-size: 40px;
     font-weight: bold;
     text-transform: uppercase;
 }
