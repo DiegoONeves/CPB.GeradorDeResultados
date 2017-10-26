@@ -32,8 +32,14 @@ namespace CPB.GeradorDeResultados
             _pastaResultadosExibidos = ConfigurationManager.AppSettings["PathResultadosExibidos"].ToString();
             _pastaPaginas = ConfigurationManager.AppSettings["PathPaginas"].ToString();
 
+            if (!Directory.Exists(_pasta))
+                Directory.CreateDirectory(_pasta);
+
             if (!Directory.Exists(_pastaPaginas))
                 Directory.CreateDirectory(_pastaPaginas);
+
+            if (!Directory.Exists(_pastaResultadosExibidos))
+                Directory.CreateDirectory(_pastaResultadosExibidos);
 
             foreach (var item in Directory.GetFiles(_pasta))
                 File.Delete(item);
@@ -162,7 +168,8 @@ namespace CPB.GeradorDeResultados
             sb.Append($"<body>");
             sb.Append($@"<div style=""position:relative;"">
           <div class=""top""><div class=""logo""><img src=""Imagens/logo_cpb.png"" /></div>
-        </div><div class=""conteudo""><p style=""margin-bottom:80px"">{resultado.Prova.NomeDaProva}</p>
+        </div><div class=""conteudo""><p style=""margin-bottom:80px"">{resultado.Prova.NomeDaProva} {resultado.Prova.VelocidadeDoVento}
+        </p>
             <table class=""tabela"" >
                 <tr>
                     <th width=""5%"">Col</th>
@@ -175,7 +182,7 @@ namespace CPB.GeradorDeResultados
             foreach (var item in resultado.Participantes)
             {
                 sb.Append("<tr>");
-                sb.Append($"<td>{item.Colocacao}</td><td>{item.Identificacao}</td><td>{item.Raia}</td><td>{item.Nome}</td><td>{item.Clube}</td><td>{item.Tempo}</td>");
+                sb.Append($"<td>{item.Colocacao}</td><td>{item.Identificacao}</td><td>{item.Raia}</td><td>{item.Nome} {item.Sobrenome}</td><td>{item.Clube}</td><td>{item.Tempo}</td>");
                 sb.Append("</tr>");
             }
             sb.Append(@"</table></div><div class=""rodape""><img src=""Imagens/logo_loterias.png"" style=""margin-top:120px;margin-left:50px"" />
