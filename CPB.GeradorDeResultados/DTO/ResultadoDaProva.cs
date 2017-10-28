@@ -22,7 +22,7 @@ namespace CPB.GeradorDeResultados.DTO
             Prova.CodigoEtapa = dadosPrimeiraLinha[1];
             Prova.CodigoSerie = dadosPrimeiraLinha[2];
             Prova.NomeDaProva = dadosPrimeiraLinha[3];
-            Prova.VelocidadeDoVento = dadosPrimeiraLinha[4] != string.Empty ? "- V.V. " + dadosPrimeiraLinha[4] + " M/S" : "";
+            Prova.VelocidadeDoVento = dadosPrimeiraLinha[4] != string.Empty ? "- Vento: " + dadosPrimeiraLinha[4].Replace("(Manual)","") + " M/S" : "";
             Prova.HoraPartida = dadosPrimeiraLinha[10];
         }
 

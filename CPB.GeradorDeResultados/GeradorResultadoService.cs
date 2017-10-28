@@ -51,7 +51,7 @@ namespace CPB.GeradorDeResultados
 
             _timerResultados = new System.Timers.Timer();
             _timerResultados.Interval = 1000;
-            _timerResultados.Elapsed += new ElapsedEventHandler(timer_Tick);
+            //_timerResultados.Elapsed += new ElapsedEventHandler(timer_Tick);
         }
 
         private void timer_Tick(object sender, EventArgs e)
