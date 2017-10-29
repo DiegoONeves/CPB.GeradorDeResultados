@@ -3,6 +3,7 @@ using System;
 using System.Configuration;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Timers;
@@ -76,7 +77,7 @@ namespace CPB.GeradorDeResultados
                     Processar(files[0]);
                 }
             }
-            catch { }
+            catch (Exception ex) { }
             finally
             {
                 _timerPrincipal.Start();
@@ -119,10 +120,11 @@ namespace CPB.GeradorDeResultados
 
             fileInfo.MoveTo(arquivoParaCopiar);
 
-
             _horaInicio = DateTime.Now;
             _timerResultados.Start();
-            AtualizarPaginaDeResultados();
+
+            var resultado = GerarResultado();
+            AtualizarPaginaDeResultados(resultado);
 
         }
 
@@ -138,7 +140,7 @@ namespace CPB.GeradorDeResultados
                 else
                     resultadoDaProva.ResolverParticipante(_linhasArquivo[i].Split(','));
             }
-
+            resultadoDaProva.Participantes = resultadoDaProva.Participantes.Where(x => !string.IsNullOrWhiteSpace(x.Colocacao)).ToList();
             return resultadoDaProva;
         }
 
@@ -156,10 +158,8 @@ namespace CPB.GeradorDeResultados
             CriarPaginaHtml(sb.ToString());
         }
 
-        private void AtualizarPaginaDeResultados()
+        private void AtualizarPaginaDeResultados(ResultadoDaProva resultado)
         {
-            var resultado = GerarResultado();
-
             StringBuilder sb = new StringBuilder();
             sb.Append("<!DOCTYPE html><html><meta charset=\"utf-8\" />");
             sb.Append("<head>");
@@ -168,24 +168,26 @@ namespace CPB.GeradorDeResultados
             sb.Append($"<body>");
             sb.Append($@"<div style=""position:relative;"">
           <div class=""top""><div class=""logo""><img src=""Imagens/logo_cpb.png"" /></div>
-        </div><div class=""conteudo""><p style=""margin-bottom:80px"">{resultado.Prova.NomeDaProva} {resultado.Prova.VelocidadeDoVento}
+        </div><div class=""conteudo""><p style=""margin-bottom:0"">{resultado.Prova.NomeDaProva} {resultado.Prova.VelocidadeDoVento}
         </p>
-            <table class=""tabela"" >
+ <table class=""tabelaTitulo"" >
                 <tr>
-                    <th width=""5%"">Col</th>
-                    <th width=""5%"">Num</th>
-                    <th width=""5%"">Raia</th>
-                    <th width=""20%"">Nome</th>
-                    <th width=""20%"">Equipe</th>
-                    <th width=""10%"">Res</th>
-                </tr>");
+                    <td width=""5%"">Col</td>
+                    <td width=""5%"">Num</td>
+                    <td width=""5%"">Raia</td>
+                    <td width=""20%"">Nome</td>
+                    <td width=""20%"">Equipe</td>
+                    <td width=""10%"">Res</td>
+                </tr></table>
+<div style=""overflow-y:scroll;height:250px"" >
+            <table class=""tabela"">");
             foreach (var item in resultado.Participantes)
             {
                 sb.Append("<tr>");
-                sb.Append($"<td>{item.Colocacao}</td><td>{item.Identificacao}</td><td>{item.Raia}</td><td>{item.Nome} {item.Sobrenome}</td><td>{item.Clube}</td><td>{item.Tempo}</td>");
+                sb.Append($@"<td width=""5%"">{item.Colocacao}</td><td width=""5%"">{item.Identificacao}</td><td width=""5%"">{item.Raia}</td><td width=""20%"" style=""white-space:nowrap;"">{item.Nome} {item.Sobrenome}</td><td width=""20%"" style=""white-space:nowrap;"">{item.Clube}</td><td width=""10%"">{item.Tempo}</td>");
                 sb.Append("</tr>");
             }
-            sb.Append(@"</table></div><div class=""rodape""><img src=""Imagens/logo_loterias.png"" style=""margin-top:120px;margin-left:50px"" />
+            sb.Append(@"</table></div></div><div class=""rodape""><img src=""Imagens/logo_loterias.png"" style=""margin-top:120px;margin-left:50px"" />
                         <img src=""Imagens/logo_braskem.png"" style=""margin-left:30px;margin-bottom:30px"" /></div></div>");
             sb.Append("</body>");
             sb.Append("</html>");
@@ -205,5 +207,7 @@ namespace CPB.GeradorDeResultados
                 fs.Write(info, 0, info.Length);
             }
         }
+
+
     }
 }

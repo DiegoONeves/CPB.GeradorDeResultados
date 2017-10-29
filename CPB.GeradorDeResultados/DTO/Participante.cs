@@ -2,9 +2,9 @@
 {
     public class Participante
     {
-        public int Colocacao { get; set; }
+        public string Colocacao { get; set; }
         public string Identificacao { get; set; }
-        public int Raia { get; set; }
+        public string Raia { get; set; }
         public string Nome { get; set; }
         public string Sobrenome { get; set; }
         public string Clube { get; set; }
