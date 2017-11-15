@@ -21,7 +21,7 @@ namespace CPB.GeradorDeResultados
         DateTime _horaInicio;
         string[] _linhasArquivo;
         private readonly System.Timers.Timer _timerResultados;
-        private readonly System.Timers.Timer _timerPrincipal;
+        private readonly System.Timers.Timer _timerPrincipal;   
 
         [DllImport("user32.dll")]
         private static extern bool SetForegroundWindow(IntPtr hWnd);
@@ -42,6 +42,8 @@ namespace CPB.GeradorDeResultados
             if (!Directory.Exists(_pastaResultadosExibidos))
                 Directory.CreateDirectory(_pastaResultadosExibidos);
 
+            CopiarArquivosIniciais();
+
             foreach (var item in Directory.GetFiles(_pasta))
                 File.Delete(item);
 
@@ -55,6 +57,27 @@ namespace CPB.GeradorDeResultados
             //_timerResultados.Elapsed += new ElapsedEventHandler(timer_Tick);
         }
 
+        private void CopiarArquivosIniciais()
+        {
+            if (!Directory.Exists(Path.Combine(_pastaPaginas, "Imagens")));
+                Directory.CreateDirectory(Path.Combine(_pastaPaginas, "Imagens"));
+
+            FileInfo imgFundo = new FileInfo("imagens/fundo.png");
+            imgFundo.CopyTo(Path.Combine(_pastaPaginas, "Imagens/fundo.png"),true);
+
+            FileInfo imgLogo = new FileInfo("imagens/logo_cpb.png");
+            imgLogo.CopyTo(Path.Combine(_pastaPaginas, "Imagens/logo_cpb.png"),true);
+
+            FileInfo imgLoterias = new FileInfo("Imagens/logo_loterias.png");
+            imgLoterias.CopyTo(Path.Combine(_pastaPaginas, "Imagens/logo_loterias.png"),true);
+
+            FileInfo imgBraskem = new FileInfo("Imagens/logo_braskem.png");
+            imgBraskem.CopyTo(Path.Combine(_pastaPaginas, "Imagens/logo_braskem.png"),true);
+            
+            FileInfo css = new FileInfo("styles.css");
+            css.CopyTo(Path.Combine(_pastaPaginas, "styles.css"),true);
+        }
+
         private void timer_Tick(object sender, EventArgs e)
         {
             if (_horaInicio != default(DateTime) && (DateTime.Now - _horaInicio).Minutes > 0)
@@ -63,7 +86,6 @@ namespace CPB.GeradorDeResultados
                 CriarPaginaStandBy();
                 AtualizarPagina();
             }
-
         }
 
         private void timerPrincipal_Tick(object sender, EventArgs e)
@@ -82,7 +104,6 @@ namespace CPB.GeradorDeResultados
             {
                 _timerPrincipal.Start();
             }
-
         }
 
         public void Iniciar()
@@ -125,9 +146,7 @@ namespace CPB.GeradorDeResultados
 
             var resultado = GerarResultado();
             AtualizarPaginaDeResultados(resultado);
-
         }
-
 
         private ResultadoDaProva GerarResultado()
         {
@@ -143,7 +162,6 @@ namespace CPB.GeradorDeResultados
             resultadoDaProva.Participantes = resultadoDaProva.Participantes.Where(x => !string.IsNullOrWhiteSpace(x.Colocacao)).ToList();
             return resultadoDaProva;
         }
-
 
         private void CriarPaginaStandBy()
         {
@@ -170,16 +188,7 @@ namespace CPB.GeradorDeResultados
           <div class=""top""><div class=""logo""><img src=""Imagens/logo_cpb.png"" /></div>
         </div><div class=""conteudo""><p style=""margin-bottom:0"">{resultado.Prova.NomeDaProva} {resultado.Prova.VelocidadeDoVento}
         </p>
- <table class=""tabelaTitulo"" >
-                <tr>
-                    <td width=""5%"">Col</td>
-                    <td width=""5%"">Num</td>
-                    <td width=""5%"">Raia</td>
-                    <td width=""20%"">Nome</td>
-                    <td width=""20%"">Equipe</td>
-                    <td width=""10%"">Res</td>
-                </tr></table>
-<div style=""overflow-y:scroll;height:250px"" >
+<div style=""overflow-y:scroll;height:370px"" >
             <table class=""tabela"">");
             foreach (var item in resultado.Participantes)
             {
@@ -207,7 +216,5 @@ namespace CPB.GeradorDeResultados
                 fs.Write(info, 0, info.Length);
             }
         }
-
-
     }
 }
