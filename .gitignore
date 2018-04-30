@@ -259,3 +259,5 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
+/CPB.GeradorDeResultados/GeradorResultadoService - Copia (2).cs
+/CPB.GeradorDeResultados/GeradorResultadoService - Copia.cs

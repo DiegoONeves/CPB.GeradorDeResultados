@@ -9,6 +9,7 @@
         public string Sobrenome { get; set; }
         public string Clube { get; set; }
         public string Tempo { get; set; }
+        public double ITC { get; set; }
 
         public override string ToString()
         {
